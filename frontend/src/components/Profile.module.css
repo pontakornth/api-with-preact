@@ -1,0 +1,10 @@
+.Profile {
+    padding: 2rem;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.Profile h1 {
+    font-weight: bold;
+    font-size: 3rem;
+}

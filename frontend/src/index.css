@@ -19,12 +19,20 @@ body {
 #app {
   height: 100%;
   text-align: center;
-  background-color: #673ab8;
-  color: #fff;
-  font-size: 1.5em;
-  padding-top: 100px;
+}
+
+input {
+  padding: .33rem;
+  border: 1px solid black;
 }
 
 .link {
   color: #fff;
+}
+
+.grid {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
 }
