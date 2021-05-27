@@ -12,12 +12,14 @@ type ErrorMessage = {
 type Response = ProfileProps[] | ErrorMessage;
 
 export function App() {
-  const [displayName, setDisplayName] = useState("")
-  const [name, setName] = useState("")
-  const { data,error } = useSWR<Response>(() => `localhost:1313/character?name=${name}`)
+  const [displayName, setDisplayName] = useState("Yuno")
+  const [name, setName] = useState("Yuno")
+
+  const { data,error } = useSWR<any>(() => name && `http://localhost:1313/character?name=${name}`)
 
   const debounceInput = useCallback(debounce((name: string) => {
     setName(name)
+    console.log(data)
     console.log(name)
   }, 1000), [])
 
@@ -25,14 +27,25 @@ export function App() {
     setDisplayName((e.target as HTMLInputElement).value)
     debounceInput((e.target as HTMLInputElement).value)
   }
+  
+  const displayData = () => {
+    if (error) return <p>{error}</p>
+    if (!data) return <p>loading..</p>
+    return (
+      <>
+      {data.map(x => (
+        <Profile name={x.name} age={x.age} anime={x.anime} key={x.name}/>
+      ))}
+      </>
+    )
+  }
 
   return (
     <>
       <label for="name">Name</label>
-      <input type="text" onChange={handleChange} name="name" />
+      <input type="text" onChange={handleChange} value={displayName} name="name" />
       <div class="grid">
-        <Profile name="Yuno" age={18} anime="Black Clover" />
-        <Profile name="Asta" age={18} anime="Black Clover" />
+        {displayData()}
       </div>
     </>
   )
