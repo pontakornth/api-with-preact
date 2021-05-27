@@ -1,7 +1,11 @@
 import Profile from "./components/Profile"
 import { Logo } from './logo'
+import useSWR from "swr"
+import {useState} from "preact/hooks"
 
 export function App() {
+  const [name, setName] = useState("")
+  const { data,error} = useSWR(() => `localhost:1313/character?name=${name}`)
   return (
     <>
       <label for="name">Name</label>
